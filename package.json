@@ -1,0 +1,10 @@
+{
+  "name": "com.noname.gamehost",
+  "displayName": "GameHost",
+  "version": "0.1.0",
+  "unity": "6000.0",
+  "description": "GameHost core runtime module for command/event/snapshot host architecture.",
+  "author": {
+    "name": "bossbobofather-cpu"
+  }
+}
