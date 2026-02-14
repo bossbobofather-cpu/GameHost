@@ -1,3 +1,6 @@
+# Link
+[Notion](https://www.notion.so/GameHost-UPM-3076a7ce2b0480daaf3df6f31e2638d8?source=copy_link)
+
 # GameHost
 
 `GameHost` is a Unity UPM package that provides a pure C# host core.
