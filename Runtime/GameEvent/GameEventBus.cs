@@ -14,6 +14,9 @@ namespace Noname.GameHost.GameEvent
         private static bool _missingActiveSceneLogged;
         private static readonly HashSet<Type> UnknownScopeLogged = new();
 
+        /// <summary>
+        /// 전역 이벤트 버스 스코프입니다.
+        /// </summary>
         public static Scope Global => GlobalScope;
 
         /// <summary>
@@ -222,10 +225,18 @@ namespace Noname.GameHost.GameEvent
                 $"{eventType.Name} 이벤트의 스코프가 정의되지 않았습니다. SceneGameEventContext 또는 GlobalGameEventContext를 사용하세요.");
         }
 
+        /// <summary>
+        /// 단일 스코프 내 이벤트 구독/발행을 처리하는 버스입니다.
+        /// </summary>
         public sealed class Scope : IEventBus<GameEventContext>
         {
             private readonly Dictionary<Type, List<Delegate>> _handlers = new();
 
+            /// <summary>
+            /// 이벤트 핸들러를 등록합니다.
+            /// </summary>
+            /// <typeparam name="TEvent">이벤트 타입입니다.</typeparam>
+            /// <param name="handler">등록할 핸들러입니다.</param>
             public void Subscribe<TEvent>(Action<TEvent> handler) where TEvent : GameEventContext
             {
                 if (handler == null)
@@ -246,6 +257,11 @@ namespace Noname.GameHost.GameEvent
                 }
             }
 
+            /// <summary>
+            /// 이벤트 핸들러 등록을 해제합니다.
+            /// </summary>
+            /// <typeparam name="TEvent">이벤트 타입입니다.</typeparam>
+            /// <param name="handler">해제할 핸들러입니다.</param>
             public void Unsubscribe<TEvent>(Action<TEvent> handler) where TEvent : GameEventContext
             {
                 if (handler == null)
@@ -266,6 +282,11 @@ namespace Noname.GameHost.GameEvent
                 }
             }
 
+            /// <summary>
+            /// 이벤트를 발행합니다.
+            /// </summary>
+            /// <typeparam name="TEvent">이벤트 타입입니다.</typeparam>
+            /// <param name="context">발행할 이벤트 컨텍스트입니다.</param>
             public void Publish<TEvent>(TEvent context) where TEvent : GameEventContext
             {
                 if (context == null)

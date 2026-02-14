@@ -152,7 +152,13 @@ namespace Noname.GameHost
             set => _snapshotInterval = value < 0f ? 0f : value;
         }
 
+        /// <summary>
+        /// 커맨드 처리 결과가 생성되었을 때 호출됩니다.
+        /// </summary>
         public event Action<TResult> ResultProduced;
+        /// <summary>
+        /// 게임 이벤트가 발행되었을 때 호출됩니다.
+        /// </summary>
         public event Action<TEvent> EventRaised;
         /// <summary>
         /// SendCommand 메서드입니다.
@@ -410,8 +416,17 @@ namespace Noname.GameHost
 
         private readonly struct DispatchItem
         {
+            /// <summary>
+            /// 현재 항목이 결과(Result)인지 여부입니다.
+            /// </summary>
             public bool IsResult { get; }
+            /// <summary>
+            /// 디스패치할 커맨드 결과입니다.
+            /// </summary>
             public TResult Result { get; }
+            /// <summary>
+            /// 디스패치할 게임 이벤트 데이터입니다.
+            /// </summary>
             public TEvent EventData { get; }
 
             private DispatchItem(TResult result, TEvent eventData, bool isResult)

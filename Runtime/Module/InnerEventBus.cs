@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace Noname.GameHost.Module
@@ -37,6 +37,11 @@ namespace Noname.GameHost.Module
         private readonly Dictionary<Type, List<Delegate>> _handlers = new();
         private readonly object _lock = new();
 
+        /// <summary>
+        /// 내부 이벤트 핸들러를 등록합니다.
+        /// </summary>
+        /// <typeparam name="TEvent">이벤트 타입입니다.</typeparam>
+        /// <param name="handler">등록할 핸들러입니다.</param>
         public void Subscribe<TEvent>(Action<TEvent> handler) where TEvent : IInnerEvent
         {
             if (handler == null)
@@ -57,6 +62,11 @@ namespace Noname.GameHost.Module
             }
         }
 
+        /// <summary>
+        /// 내부 이벤트 핸들러 등록을 해제합니다.
+        /// </summary>
+        /// <typeparam name="TEvent">이벤트 타입입니다.</typeparam>
+        /// <param name="handler">해제할 핸들러입니다.</param>
         public void Unsubscribe<TEvent>(Action<TEvent> handler) where TEvent : IInnerEvent
         {
             if (handler == null)
@@ -74,6 +84,11 @@ namespace Noname.GameHost.Module
             }
         }
 
+        /// <summary>
+        /// 내부 이벤트를 발행합니다.
+        /// </summary>
+        /// <typeparam name="TEvent">이벤트 타입입니다.</typeparam>
+        /// <param name="eventData">발행할 이벤트 데이터입니다.</param>
         public void Publish<TEvent>(TEvent eventData) where TEvent : IInnerEvent
         {
             if (eventData == null)
